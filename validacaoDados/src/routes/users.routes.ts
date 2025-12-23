@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { loginController } from "../controller/login.controller";
-import { validarEmail, validarLogin, validarSenha, validarTipoEmailSenha } from "../middleware/login.middleware";
+import { validarLoginValidator } from "../middleware/validarLogin";
+import { validarResultado } from "../middleware/validarResultado";
 
 const router = Router()
 
-router.post("/", 
-    validarLogin,
-    validarTipoEmailSenha,
-    validarEmail,
-    validarSenha,
+router.post(
+    "/", 
+    validarLoginValidator,
+    validarResultado,
     loginController
 )
 
