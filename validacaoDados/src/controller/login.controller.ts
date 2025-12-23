@@ -12,6 +12,8 @@ export function loginController(
     const { email, senha } = req.body;
 
     return res.json({
-        message: "Campos obrigatorios OK"
+        message: "Campos obrigatorios OK",
+        email,
+        senha
     });
 }
