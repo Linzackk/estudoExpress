@@ -34,27 +34,36 @@ export function listarUsuarios(
 
     const limitNumber: number = Number(limit);
     
-    if (limit) {
-        const usuarios: User[] = usuariosDB.slice(0, limitNumber);
-        res.status(200).json({
-            message: `Listando ${limitNumber} Usuarios`,
+    if (limit && role) {
+        const usuariosFiltrados: User[] = usuariosDB.filter(usuario => usuario.role === role);
+        return res.status(200).json({
+            message: `Listando ${limitNumber} Usuarios ${role}`,
             data: {
-                usuarios: usuarios
+                usuarios: limitarListagemUsuario(usuariosFiltrados, limitNumber)
             }
         });
+    }
+
+    if (limit) {
+        return res.status(200).json({
+            message: `Listando ${limitNumber} Usuarios`,
+            data: {
+                usuarios: limitarListagemUsuario(usuariosDB, limitNumber)
+            }
+        });      
     }
 
     if (role) {
         const usuariosFiltrados: User[] = usuariosDB.filter(usuario => usuario.role === role);
-        res.status(200).json({
+        return res.status(200).json({
             message: `Listando Usuarios ${role}`,
             data: {
                 usuarios: usuariosFiltrados
             }
-        });
+        });        
     }
 
-    res.status(200).json({
+    return res.status(200).json({
             message: "Listando todos usuarios",
             data: {
                 "usuarios": usuariosDB
@@ -62,3 +71,6 @@ export function listarUsuarios(
         });
 }
 
+function limitarListagemUsuario(arr: User[], limitNumber: number): User[] {
+    return arr.slice(0, limitNumber);
+}
