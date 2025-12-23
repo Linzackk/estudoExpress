@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { loginController } from "../controller/login.controller";
-import { validarLoginValidator } from "../middleware/validarLogin";
 import { validarResultado } from "../middleware/validarResultado";
+import { validarCriarUsuario } from "../middleware/validarCriacaoUsuario";
+import { criarUsuario } from "../controller/users.controller";
 
 const router = Router()
 
 router.post(
-    "/", 
-    validarLoginValidator,
+    "/",
+    validarCriarUsuario,
     validarResultado,
-    loginController
+    criarUsuario
 )
 
 export default router
