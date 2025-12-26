@@ -31,8 +31,8 @@ export const validarCriarUsuario = [
         })
         .withMessage("Senha fraca. Use no mínimo 8 caracteres, com letra maiúscula, minúscula, número e símbolo"),
 
-        body("role")
-            .optional()
-            .isIn(["admin", "user"])
-            .withMessage("Role inexistente")
+    body("role")
+        .optional()
+        .isIn(["admin", "user"])
+        .withMessage("Role inexistente")
 ]
