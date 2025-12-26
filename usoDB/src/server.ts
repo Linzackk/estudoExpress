@@ -1,4 +1,4 @@
-import { criarProdutos, procurarProdutos } from "./seed.js";
+import { criarCategoria, criarProduto} from "./seed.js";
 import { prisma } from "./prisma/client.js";
 
-procurarProdutos()
+criarCategoria("Frutas")

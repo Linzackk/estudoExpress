@@ -1,43 +1,74 @@
 import { prisma } from "./prisma/client.js";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
-export async function criarProdutos() {
-    const cat1 = await prisma.category.create({
-        data: {name: "Eletrônicos" },
-    });
-
-    const cat2 = await prisma.category.create({
-        data: {name: "Roupas" },
-    });
-
-    console.log("Categorias criadas: ", cat1, cat2);
-
-    const prod1 = await prisma.product.create({
-        data: {
-            name: "Smartphone",
-            price: 1999.9,
-            categoryId: cat1.id,
-        },
-    });
-
-    const prod2 = await prisma.product.create({
-        data: {
-            name: "Camiseta",
-            price: 79.9,
-            categoryId: cat2.id,
-        },
-    });
-
-    console.log("Produtos Criados: ", prod1, prod2)
+export async function criarProduto(name: string, price: number, categoria: string) {
+    try {
+        const produto = await prisma.product.create({
+            data: {
+                name: name,
+                price: price,
+                categoryId: 1
+            }
+        });
+        console.log(`[${Date.now()}] Produto ${produto} Criado.`)
+        return { success: true, produto};
+    }
+    catch (err: any) {
+        if (err instanceof PrismaClientKnownRequestError) {
+            if (err.code === "P2002") {
+                return { success: false, message: "Produto ja existe"}
+            }
+        }
+        return { success: false, message: "Erro interno do servidor"}
+    }
 }
 
-export async function procurarProdutos() {
-    const produtosComCategorias = await prisma.product.findMany({
-        include: {
-            category: true,
+export async function criarCategoria(name: string) {
+    try {
+        const categoria = await prisma.category.create({
+            data: {
+                name: name
+            }
+        });
+        console.log(`[${Date.now()}] Produto ${categoria} Criado.`)
+        return { success: true, categoria}
+    }
+    catch (err: any) {
+        if (err instanceof PrismaClientKnownRequestError) {
+            if (err.code === "P2002") {
+                return { success: false, message: "Categoria ja existe"}
+            }
+        }
+        return { success: false, message: "Erro interno do servidor"}
+    }
+}
+
+export async function procurarCategoria(nomeCategoria: string) {
+    const categoria = await prisma.category.findFirst({
+        where: {
+            name: nomeCategoria,
+        },
+    });
+}
+
+export async function procurarProdutosPorCategoria(categoryId: number) {
+    const produtosComCategoria = await prisma.product.findMany({
+        where: {
+            categoryId: categoryId,
         },
     });
 
-    console.log(produtosComCategorias);
+    return produtosComCategoria
+}
+
+export async function procurarProduto(productId: number) {
+    const produto = await prisma.product.findUnique({
+        where: {
+            id: productId,
+        },
+    });
+
+    return produto
 }
 
 export async function atualizarProduto() {
