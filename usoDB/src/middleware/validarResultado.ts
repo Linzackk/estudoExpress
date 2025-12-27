@@ -1,0 +1,24 @@
+import { Request, Response, NextFunction } from "express";
+import { FieldValidationError, validationResult } from "express-validator";
+
+export function validarResultado(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty) {
+        const errosFormatados = errors.array().map(erro => {
+            const fieldError = erro as FieldValidationError;
+            return {
+                field: fieldError.path,
+                message: fieldError.msg
+            }
+        });
+        return res.status(400).json({
+            errors: errosFormatados
+        });
+    }
+
+    next()
+}
