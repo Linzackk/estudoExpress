@@ -9,11 +9,19 @@ export async function lerProduto(
     req: Request,
     res: Response
 ) {
+    
     const {id} = req.params;
 
     const idNumerico = Number(id)
 
     const produto = await procurarProdutoPorId(idNumerico);
+
+    if (!produto) {
+        res.status(404).json({
+            message: "Produto com ID inexistente"
+        })
+        return
+    }
 
     res.status(200).json({
         message: `Produto ${id}`,

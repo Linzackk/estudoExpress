@@ -6,10 +6,9 @@ export function validarResultado(
     res: Response,
     next: NextFunction
 ) {
-    const erros = validationResult(req);
-
-    if (erros) {
-        const errosFormatados = erros.array().map(erro => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty) {
+        const errosFormatados = errors.array().map(erro => {
             const fieldError = erro as FieldValidationError;
             return {
                 field: fieldError.path,

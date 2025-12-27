@@ -6,7 +6,7 @@ import { lerProduto } from "../controller/produtos.controller.js";
 const router = Router();
 
 router.get(
-    "/",
+    "/:id",
     validarLerProduto,
     validarResultado,
     lerProduto

@@ -33,7 +33,7 @@ export const validarLerProduto = [
         .isEmpty()
         .withMessage("id obrigatorio")
         .isInt()
-        .withMessage("id precisa ser inteiro")
+        .withMessage("id precisa ser int")
         .isInt({min: 1})
         .withMessage("id precisa ser maior que 1")
 ]

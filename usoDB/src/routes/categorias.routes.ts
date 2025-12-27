@@ -4,7 +4,7 @@ const router = Router();
 
 export default router;
 
-router.get(
-    "/",
-    //validarCategorias
-)
+// router.get(
+//     "/",
+//     //validarCategorias
+// )
