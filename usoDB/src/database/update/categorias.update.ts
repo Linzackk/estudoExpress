@@ -5,7 +5,7 @@ interface dataAtualizacaoCategoria {
     name?: string
 }
 
-export async function atualizarCategoria(categoriaId: number, nome: string) {
+export async function atualizarCategoria(categoriaId: number, nome?: string) {
     if (!procurarCategoriaPorId(categoriaId)) {
         return {
             success: false,
@@ -26,4 +26,9 @@ export async function atualizarCategoria(categoriaId: number, nome: string) {
         where: {id: categoriaId},
         data: { name: nome},
     });
+
+    return {
+        success: true,
+        categoriaAtualizada
+    }
 }
