@@ -1,15 +1,10 @@
 import { Request, Response } from "express";
-import { procurarProdutoPorId } from "../database/read/produtos.read.js";
-
-interface reqParams {
-    id: number
-}
+import { procurarProdutoPorId, procurarProdutosPorCategoria } from "../database/read/produtos.read.js";
 
 export async function lerProduto(
     req: Request,
     res: Response
-) {
-    
+) {    
     const {id} = req.params;
 
     const idNumerico = Number(id)
@@ -27,4 +22,13 @@ export async function lerProduto(
         message: `Produto ${id}`,
         data: {produto: produto}
     })
+}
+
+export async function lerProdutosPorCategoria(
+    req: Request,
+    res: Response
+) {
+    const {categoria} = req.params;
+
+    const produtos = await procurarProdutosPorCategoria(categoria)
 }

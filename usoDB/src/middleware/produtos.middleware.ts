@@ -11,29 +11,37 @@ export const validarDeletarProduto = [
 export const validarCriarProduto = [
     body("name")
         .isEmpty()
-        .withMessage("name obrigatorio")
+        .withMessage("Campo obrigatorio")
         .isString()
-        .withMessage("name precisa ser string"),
+        .withMessage("Campo precisa ser string"),
 
     body("price")
         .isEmpty()
-        .withMessage("price obrigatorio")
+        .withMessage("Campo obrigatorio")
         .isFloat()
-        .withMessage("price precisa float"),
+        .withMessage("Campo precisa float"),
 
     body("category")
         .isEmpty()
-        .withMessage("category obrigatorio")
+        .withMessage("Campo obrigatorio")
         .isString()
-        .withMessage("category precisa ser string"),
+        .withMessage("Campo precisa ser string"),
 ]
 
 export const validarLerProduto = [
     param("id")
         .isEmpty()
-        .withMessage("id obrigatorio")
+        .withMessage("Campo obrigatorio")
         .isInt()
-        .withMessage("id precisa ser int")
+        .withMessage("Campo precisa ser int")
         .isInt({min: 1})
-        .withMessage("id precisa ser maior que 1")
+        .withMessage("Campo precisa ser maior que 1")
+]
+
+export const validarLerProdutosPorCategoria = [
+    param("categoria")
+        .isEmpty()
+        .withMessage("Campo obrigatorio")
+        .isString()
+        .withMessage("Campo precisa ser string"),
 ]

@@ -1,9 +1,19 @@
 import { prisma } from "../prisma/client.js";
+import { procurarCategoriaPorNome } from "./categorias.read.js";
 
-export async function procurarProdutosPorCategoria(categoryId: number) {
+export async function procurarProdutosPorCategoria(category: string) {
+    const categoria = procurarCategoriaPorNome(category)
+
+    if (!categoria) {
+        return {
+            success: false,
+            message: "Categoria Inexistente"
+        }
+    }
+
     const produtosComCategoria = await prisma.product.findMany({
         where: {
-            categoryId: categoryId,
+            categoryId: categoria.id,
         },
     });
 
@@ -17,15 +27,5 @@ export async function procurarProdutoPorId(productId: number) {
         },
     });
     
-    return produto
-}
-
-export async function procurarCategoriaPorNome(nomeProduto: string) {
-    const produto = await prisma.product.findMany({
-        where: {
-            name: nomeProduto,
-        },
-    });
-
     return produto
 }
