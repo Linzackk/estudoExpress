@@ -15,6 +15,6 @@ export async function deletarCategoriaDb(categoriaId: number) {
 
     return {
         success: true,
-        categoria
+        categoria: categoria
     }
 }

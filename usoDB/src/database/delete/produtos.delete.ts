@@ -15,6 +15,6 @@ export async function deletarProdutoDb(produtoId: number) {
 
     return {
         success: true,
-        produtoDeletado
+        produtoDeletado: produtoDeletado
     }
 }

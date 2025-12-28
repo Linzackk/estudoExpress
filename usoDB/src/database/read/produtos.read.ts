@@ -17,7 +17,7 @@ export async function procurarProdutosPorCategoria(category: string) {
         },
     });
 
-    return produtosComCategoria
+    return {produtos: produtosComCategoria}
 }
 
 export async function procurarProdutoPorId(productId: number) {
@@ -27,5 +27,5 @@ export async function procurarProdutoPorId(productId: number) {
         },
     });
     
-    return produto
+    return {produto: produto}
 }

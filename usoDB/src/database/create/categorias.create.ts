@@ -9,7 +9,7 @@ export async function criarCategoriaDb(name: string) {
                 name: name
             }
         });
-        return { success: true, categoria}
+        return { success: true, categoria: categoria}
     }
     catch (err: any) {
         if (err instanceof PrismaClientKnownRequestError) {

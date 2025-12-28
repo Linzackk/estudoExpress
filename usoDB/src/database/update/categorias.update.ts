@@ -29,6 +29,6 @@ export async function atualizarCategoriaDb(categoriaId: number, nome?: string) {
 
     return {
         success: true,
-        categoria
+        categoria: categoria
     }
 }

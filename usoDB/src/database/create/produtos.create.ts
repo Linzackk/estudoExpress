@@ -1,16 +1,20 @@
 import { prisma } from "../prisma/client.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+import { procurarCategoriaPorNome } from "../read/categorias.read.js";
 
-export async function criarProduto(name: string, price: number, categoria: string) {
+export async function criarProdutoDb(name: string, price: number, categoria: string) {
     try {
+        const categoriaDb = await procurarCategoriaPorNome(categoria)
+        const categoriaId = categoriaDb.id
+        
         const produto = await prisma.product.create({
             data: {
                 name: name,
                 price: price,
-                categoryId: 1
+                categoryId: categoriaId
             }
         });
-        return { success: true, produto};
+        return { success: true, produto: produto};
     }
     catch (err: any) {
         if (err instanceof PrismaClientKnownRequestError) {

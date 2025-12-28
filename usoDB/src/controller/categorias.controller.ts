@@ -56,7 +56,6 @@ export async function criarCategoria(
     const {nome} = req.body;
 
     const categoriaCriada = await criarCategoriaDb(nome);
-    const {categoria} = categoriaCriada
 
     if (!categoriaCriada.success) {
         res.status(500).json({
@@ -68,7 +67,7 @@ export async function criarCategoria(
 
     res.status(200).json({
         message: "Categoria criada",
-        categoria
+        data: {categoria: categoriaCriada.categoria}
     });
 }
 
@@ -91,11 +90,11 @@ export async function atualizarCategoria(
         return
     }
 
-    const {categoria} = categoriaAtualizada
+    
 
     res.status(200).json({
         message: "Categoria atualizada",
-        categoria: categoria
+        data: {categoria: categoriaAtualizada.categoria}
     });
 }
 
@@ -116,10 +115,8 @@ export async function deletarCategoria(
         return
     }
 
-    const {categoria} = categoriaDeletada;
-
     res.status(200).json({
         message: "Categoria deletada",
-        categoria: categoria
+        data: {categoria: categoriaDeletada.categoria}
     })
 }
