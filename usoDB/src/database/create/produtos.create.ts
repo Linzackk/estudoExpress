@@ -10,8 +10,6 @@ export async function criarProduto(name: string, price: number, categoria: strin
                 categoryId: 1
             }
         });
-        console.log(produto)
-        console.log(`[${Date.now()}] Produto ${produto} Criado.`)
         return { success: true, produto};
     }
     catch (err: any) {

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { procurarCategoriaPorId, procurarCategoriaPorNome } from "../database/read/categorias.read.js";
+import { criarCategoriaDb } from "../database/create/categorias.create.js";
 
 export async function lerCategoriaPorId (
     req: Request,
@@ -43,4 +44,27 @@ export async function lerCategoriaPorNome (
         message: `Categoria ${nome}`,
         data: {categoria: categoria}
     });
+}
+
+export async function criarCategoria(
+    req: Request,
+    res: Response
+) {
+    const {nome} = req.body;
+
+    const categoriaCriada = await criarCategoriaDb(nome);
+    const {categoria} = categoriaCriada
+
+    if (!categoriaCriada.success) {
+        res.status(500).json({
+            message: "Categoria nao pode ser criada",
+            error: categoriaCriada.message,
+        });
+        return
+    }
+
+    res.status(200).json({
+        message: "Categoria criada com sucesso",
+        categoria
+    })
 }
