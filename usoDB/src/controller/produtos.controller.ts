@@ -19,7 +19,7 @@ export async function lerProduto(
     }
 
     res.status(200).json({
-        message: `Produto ${id}`,
+        message: `Produto ID ${id}`,
         data: {produto: produto}
     })
 }
@@ -31,4 +31,16 @@ export async function lerProdutosPorCategoria(
     const {categoria} = req.params;
 
     const produtos = await procurarProdutosPorCategoria(categoria)
+
+    if (!produtos) {
+        res.status(404).json({
+            message: "Nao há produtos nessa categoria",
+        });
+        return
+    }
+
+    res.status(200).json({
+        message: `Produtos da categoria ${categoria}`,
+        produtos,
+    });
 }

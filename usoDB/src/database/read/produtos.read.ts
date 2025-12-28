@@ -2,7 +2,7 @@ import { prisma } from "../prisma/client.js";
 import { procurarCategoriaPorNome } from "./categorias.read.js";
 
 export async function procurarProdutosPorCategoria(category: string) {
-    const categoria = procurarCategoriaPorNome(category)
+    const categoria = await procurarCategoriaPorNome(category)
 
     if (!categoria) {
         return {

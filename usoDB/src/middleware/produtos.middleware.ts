@@ -32,10 +32,8 @@ export const validarLerProduto = [
     param("id")
         .isEmpty()
         .withMessage("Campo obrigatorio")
-        .isInt()
-        .withMessage("Campo precisa ser int")
         .isInt({min: 1})
-        .withMessage("Campo precisa ser maior que 1")
+        .withMessage("Campo precisa ser int maior que 1")
 ]
 
 export const validarLerProdutosPorCategoria = [
