@@ -32,7 +32,7 @@ router.post( // Colocar um categoria novo
 )
 
 router.put(
-    "/",
+    "/:id",
     validarAtualizarCategoria,
     validarResultado,
     atualizarCategoria

@@ -2,16 +2,16 @@ import {param, body} from "express-validator";
 
 export const validarLerCategoriaId = [
     param("id")
-        .isEmpty()
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isInt({min : 1})
-        .withMessage("Campo precisa ser int maior que 1"),
+        .withMessage("Campo precisa ser int minimo que 1"),
     
 ]
 
 export const validarLerCategoriaNome = [
     param("nome")
-        .isEmpty()
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser string")
@@ -26,6 +26,12 @@ export const validarCriarCategoria = [
 ]
 
 export const validarAtualizarCategoria = [
+    param("id")
+        .notEmpty()
+        .withMessage("Campo obrigatorio")
+        .isInt({min: 1})
+        .withMessage("Campo precisa ser int minimo 1"),
+
     body("nome")
         .optional()
         .isString()

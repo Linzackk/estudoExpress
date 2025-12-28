@@ -78,9 +78,11 @@ export async function atualizarCategoria(
 ) {
     const {nome} = req.body;
 
-    const {id} = await procurarCategoriaPorNome(nome);
+    const {id} = req.params;
 
-    const categoriaAtualizada = await atualizarCategoriaDb(id, nome);
+    const idNumerico = Number(id)
+
+    const categoriaAtualizada = await atualizarCategoriaDb(idNumerico, nome);
 
     if (!categoriaAtualizada.success) {
         res.status(404).json({

@@ -22,7 +22,7 @@ export async function atualizarCategoriaDb(categoriaId: number, nome?: string) {
 
     // let data: dataAtualizacaoCategoria = {} Adicionar caso aumente informações nas categorias.
 
-    const categoria = prisma.category.update({
+    const categoria = await prisma.category.update({
         where: {id: categoriaId},
         data: { name: nome},
     });
