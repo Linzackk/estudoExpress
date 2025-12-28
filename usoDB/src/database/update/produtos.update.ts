@@ -4,31 +4,36 @@ import { procurarProdutosPorCategoria, procurarProdutoPorId } from "../read/prod
 interface dataAtualizacaoProduto {
     price?: number,
     name?: string,
+    categoryId?: number,
 }
 
-export async function atualizarProduto(produtoId: number, preco?: number, nome?: string) {
-    if (!procurarProdutoPorId(produtoId)) {
+export async function atualizarProdutoDb(produtoId: number, preco?: number, nome?: string, idCategoria?: number) {
+    if (!await procurarProdutoPorId(produtoId)) {
         return {
             success: false,
             message: "Produto com ID inexistente"
         }
     }
 
-    if (!preco && !nome) {
+    if (!preco && !nome && !idCategoria) {
         return {
             success: false,
             message: "Nenhum valor para atualizacao inserido"
         }
     }
 
-    let data: dataAtualizacaoProduto = {}
+    let data: dataAtualizacaoProduto = {};
 
     if (preco) {
-        data.price = preco
+        data.price = preco;
     }
 
     if (nome) {
-        data.name = nome
+        data.name = nome;
+    }
+
+    if (idCategoria) {
+        data.categoryId = idCategoria;
     }
 
     const produtoAtualizado = await prisma.product.update({
@@ -38,6 +43,6 @@ export async function atualizarProduto(produtoId: number, preco?: number, nome?:
 
     return {
         success: true,
-        produtoAtualizado
+        produtoAtualizado: produtoAtualizado
     }
 }

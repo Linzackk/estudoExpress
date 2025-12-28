@@ -1,7 +1,7 @@
 import { prisma } from "../prisma/client.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
-export async function criarCategoria(name: string) {
+export async function criarCategoriaDb(name: string) {
     try {
         // Fazer uma validação para caso a categoria já exista
         const categoria = await prisma.category.create({
@@ -9,9 +9,7 @@ export async function criarCategoria(name: string) {
                 name: name
             }
         });
-        console.log(categoria)
-        console.log(`[${Date.now()}] Produto ${categoria} Criado.`)
-        return { success: true, categoria}
+        return { success: true, categoria: categoria}
     }
     catch (err: any) {
         if (err instanceof PrismaClientKnownRequestError) {

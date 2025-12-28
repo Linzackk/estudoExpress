@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { validarLerProduto, validarLerProdutosPorCategoria } from "../middleware/produtos.middleware.js";
+import { validarLerProdutoPorId, validarLerProdutosPorCategoria, validarAtualizarProduto, validarDeletarProduto, validarCriarProduto } from "../middleware/produtos.middleware.js";
 import { validarResultado } from "../middleware/validarResultado.js";
-import { lerProduto, lerProdutosPorCategoria } from "../controller/produtos.controller.js";
+import { atualizarProduto, criarProduto, lerProduto, lerProdutosPorCategoria } from "../controller/produtos.controller.js";
+import { deletarProduto } from "../controller/produtos.controller.js";
 
 const router = Router();
 
 router.get(
     "/id/:id",
-    validarLerProduto,
+    validarLerProdutoPorId,
     validarResultado,
     lerProduto
 )
@@ -17,6 +18,27 @@ router.get(
     validarLerProdutosPorCategoria,
     validarResultado,
     lerProdutosPorCategoria
+)
+
+router.post(
+    "/",
+    validarCriarProduto,
+    validarResultado,
+    criarProduto
+)
+
+router.put(
+    "/:id",
+    validarAtualizarProduto,
+    validarResultado,
+    atualizarProduto
+)
+
+router.delete(
+    "/:id",
+    validarDeletarProduto,
+    validarResultado,
+    deletarProduto
 )
 
 export default router;

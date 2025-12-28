@@ -5,8 +5,8 @@ interface dataAtualizacaoCategoria {
     name?: string
 }
 
-export async function atualizarCategoria(categoriaId: number, nome?: string) {
-    if (!procurarCategoriaPorId(categoriaId)) {
+export async function atualizarCategoriaDb(categoriaId: number, nome?: string) {
+    if (!await procurarCategoriaPorId(categoriaId)) {
         return {
             success: false,
             message: "Categoria com ID inexistente"
@@ -15,20 +15,20 @@ export async function atualizarCategoria(categoriaId: number, nome?: string) {
 
     if (!nome) {
         return {
-            sucess: false,
+            success: false,
             message: "Nenhum valor para atualizacao inserido"
         };
     }
 
     // let data: dataAtualizacaoCategoria = {} Adicionar caso aumente informações nas categorias.
 
-    const categoriaAtualizada = prisma.category.update({
+    const categoria = await prisma.category.update({
         where: {id: categoriaId},
         data: { name: nome},
     });
 
     return {
         success: true,
-        categoriaAtualizada
+        categoria: categoria
     }
 }

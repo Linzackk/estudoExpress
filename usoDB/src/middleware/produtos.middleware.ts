@@ -1,47 +1,69 @@
 import { body, param } from "express-validator";
 
-export const validarAtualizarProduto = [
-
-];
-
-export const validarDeletarProduto = [
-
-];
-
 export const validarCriarProduto = [
-    body("name")
-        .isEmpty()
+    body("nome")
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser string"),
 
-    body("price")
-        .isEmpty()
+    body("preco")
+        .notEmpty()
         .withMessage("Campo obrigatorio")
-        .isFloat()
-        .withMessage("Campo precisa float"),
+        .isFloat({min: 0.01})
+        .withMessage("Campo precisa ser float minimo 0.01"),
 
-    body("category")
-        .isEmpty()
+    body("categoria")
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser string"),
-]
+];
 
-export const validarLerProduto = [
+export const validarLerProdutoPorId = [
     param("id")
-        .isEmpty()
+        .notEmpty()
         .withMessage("Campo obrigatorio")
-        .isInt()
-        .withMessage("Campo precisa ser int")
         .isInt({min: 1})
-        .withMessage("Campo precisa ser maior que 1")
-]
+        .withMessage("Campo precisa ser int minimo 1")
+];
 
 export const validarLerProdutosPorCategoria = [
     param("categoria")
-        .isEmpty()
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser string"),
-]
+];
+
+export const validarAtualizarProduto = [
+    param("id")
+        .notEmpty()
+        .withMessage("Campo obrigatorio")
+        .isInt({min : 1})
+        .withMessage("Campo precisa ser int minimo 1"),
+
+    body("nome")
+        .optional()
+        .isString()
+        .withMessage("Campo precisa ser string"),
+
+    body("preco")
+        .optional()
+        .isFloat({min: 0.01})
+        .withMessage("Campo precisa ser float minimo 0.01"),
+
+    body("idCategoria")
+        .optional()
+        .isInt({min: 1})
+        .withMessage("Campo precisa ser int minimo 1")
+];
+
+export const validarDeletarProduto = [
+    param("id")
+        .notEmpty()
+        .withMessage("Campo obrigatorio")
+        .isInt({min: 1})
+        .withMessage("Campo precisa ser int minimo 1")
+];
+

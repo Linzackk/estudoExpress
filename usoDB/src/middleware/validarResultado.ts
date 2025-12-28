@@ -7,7 +7,8 @@ export function validarResultado(
     next: NextFunction
 ) {
     const errors = validationResult(req)
-    if (!errors.isEmpty) {
+
+    if (!errors.isEmpty()) {
         const errosFormatados = errors.array().map(erro => {
             const fieldError = erro as FieldValidationError;
             return {
