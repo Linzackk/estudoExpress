@@ -7,7 +7,7 @@ export async function procurarCategoriaPorNome(nomeCategoria: string) {
         },
     });
     
-    return categoria
+    return categoria[0]
 }
 
 export async function procurarCategoriaPorId(categoriaId: number) {
