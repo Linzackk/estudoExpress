@@ -24,3 +24,10 @@ export const validarCriarCategoria = [
         .isString()
         .withMessage("Campo precisa ser uma string")
 ]
+
+export const validarAtualizarCategoria = [
+    body("nome")
+        .optional()
+        .isString()
+        .withMessage("Campo precisa ser uma string"),
+]

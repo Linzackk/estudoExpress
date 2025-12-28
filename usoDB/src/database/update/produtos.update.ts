@@ -6,7 +6,7 @@ interface dataAtualizacaoProduto {
     name?: string,
 }
 
-export async function atualizarProduto(produtoId: number, preco?: number, nome?: string) {
+export async function atualizarProdutoDb(produtoId: number, preco?: number, nome?: string) {
     if (!procurarProdutoPorId(produtoId)) {
         return {
             success: false,

@@ -1,7 +1,7 @@
 import { prisma } from "../prisma/client.js";
 import { procurarProdutosPorCategoria, procurarProdutoPorId } from "../read/produtos.read.js"
 
-export async function deletarProduto(produtoId: number) {
+export async function deletarProdutoDb(produtoId: number) {
     if (!procurarProdutoPorId(produtoId)) {
         return {
             success: false,

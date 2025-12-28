@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
+
 import { procurarCategoriaPorId, procurarCategoriaPorNome } from "../database/read/categorias.read.js";
 import { criarCategoriaDb } from "../database/create/categorias.create.js";
+import { atualizarCategoriaDb } from "../database/update/categorias.update.js";
+import { deletarCategoriaDb } from "../database/delete/categorias.delete.js";
 
 export async function lerCategoriaPorId (
     req: Request,
@@ -64,7 +67,32 @@ export async function criarCategoria(
     }
 
     res.status(200).json({
-        message: "Categoria criada com sucesso",
+        message: "Categoria criada",
         categoria
-    })
+    });
+}
+
+export async function atualizarCategoria(
+    req: Request,
+    res: Response,
+) {
+    const {nome} = req.body;
+
+    const {id} = await procurarCategoriaPorNome(nome);
+
+    const categoriaAtualizada = await atualizarCategoriaDb(id, nome);
+
+    if (!categoriaAtualizada.success) {
+        res.status(404).json({
+            message: categoriaAtualizada.message,
+        });
+        return
+    }
+
+    const {categoria} = categoriaAtualizada
+
+    res.status(200).json({
+        message: "Categoria atualizada",
+        categoria: categoria
+    });
 }
