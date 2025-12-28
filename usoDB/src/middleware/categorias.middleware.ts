@@ -33,7 +33,8 @@ export const validarAtualizarCategoria = [
         .withMessage("Campo precisa ser int minimo 1"),
 
     body("nome")
-        .optional()
+        .notEmpty()
+        .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser uma string"),
 ]

@@ -7,7 +7,7 @@ interface dataAtualizacaoProduto {
 }
 
 export async function atualizarProdutoDb(produtoId: number, preco?: number, nome?: string) {
-    if (!procurarProdutoPorId(produtoId)) {
+    if (!await procurarProdutoPorId(produtoId)) {
         return {
             success: false,
             message: "Produto com ID inexistente"

@@ -14,6 +14,5 @@ export async function procurarCategoriaPorId(categoriaId: number) {
     const result = await prisma.category.findUnique({
         where: { id: categoriaId},
     });
-
     return result
 }

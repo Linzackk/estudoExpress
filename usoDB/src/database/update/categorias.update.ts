@@ -6,7 +6,7 @@ interface dataAtualizacaoCategoria {
 }
 
 export async function atualizarCategoriaDb(categoriaId: number, nome?: string) {
-    if (!procurarCategoriaPorId(categoriaId)) {
+    if (!await procurarCategoriaPorId(categoriaId)) {
         return {
             success: false,
             message: "Categoria com ID inexistente"

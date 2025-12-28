@@ -2,7 +2,7 @@ import { prisma } from "../prisma/client.js";
 import { procurarProdutosPorCategoria, procurarProdutoPorId } from "../read/produtos.read.js"
 
 export async function deletarProdutoDb(produtoId: number) {
-    if (!procurarProdutoPorId(produtoId)) {
+    if (!await procurarProdutoPorId(produtoId)) {
         return {
             success: false,
             message: "Produto com ID inexistente"
