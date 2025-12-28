@@ -9,13 +9,12 @@ export async function deletarCategoriaDb(categoriaId: number) {
         }
     }
 
-    const categoriaRemovida = await prisma.category.delete({
+    const categoria = await prisma.category.delete({
         where: {id: categoriaId},
     });
 
-    console.log(categoriaRemovida)
     return {
         success: true,
-        categoriaRemovida
+        categoria
     }
 }

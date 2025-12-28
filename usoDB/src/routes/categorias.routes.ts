@@ -1,9 +1,9 @@
 import { Router } from "express";
 
 import { validarResultado } from "../middleware/validarResultado.js";
-import { validarLerCategoriaId, validarLerCategoriaNome, validarCriarCategoria, validarAtualizarCategoria } from "../middleware/categorias.middleware.js";
+import { validarLerCategoriaId, validarLerCategoriaNome, validarCriarCategoria, validarAtualizarCategoria, validarDeletarCategoria } from "../middleware/categorias.middleware.js";
 
-import { criarCategoria, lerCategoriaPorId, lerCategoriaPorNome, atualizarCategoria } from "../controller/categorias.controller.js";
+import { criarCategoria, lerCategoriaPorId, lerCategoriaPorNome, atualizarCategoria, deletarCategoria } from "../controller/categorias.controller.js";
 
 
 const router = Router();
@@ -24,7 +24,7 @@ router.get(
     lerCategoriaPorNome
 )
 
-router.post( // Colocar um categoria novo
+router.post(
     "/",
     validarCriarCategoria,
     validarResultado,
@@ -38,6 +38,9 @@ router.put(
     atualizarCategoria
 )
 
-// router.delete(
-//     "/" // Deleta um categoria
-// )
+router.delete(
+    "/",
+    validarDeletarCategoria,
+    validarResultado,
+    deletarCategoria
+)

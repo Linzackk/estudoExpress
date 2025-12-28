@@ -19,7 +19,7 @@ export const validarLerCategoriaNome = [
 
 export const validarCriarCategoria = [
     body("nome")
-        .isEmpty()
+        .notEmpty()
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser uma string")
@@ -36,4 +36,12 @@ export const validarAtualizarCategoria = [
         .optional()
         .isString()
         .withMessage("Campo precisa ser uma string"),
+]
+
+export const validarDeletarCategoria = [
+    param("id")
+        .notEmpty()
+        .withMessage("Campo obrigatorio")
+        .isInt({min: 1})
+        .withMessage("Campo precisa ser int minimo 1")
 ]

@@ -98,3 +98,28 @@ export async function atualizarCategoria(
         categoria: categoria
     });
 }
+
+export async function deletarCategoria(
+    req: Request,
+    res: Response,
+) {
+    const {id} = req.params;
+
+    const idNumerico = Number(id);
+
+    const categoriaDeletada = await deletarCategoriaDb(idNumerico);
+
+    if (!categoriaDeletada.success) {
+        res.status(404).json({
+            message: categoriaDeletada.message,
+        });
+        return
+    }
+
+    const {categoria} = categoriaDeletada;
+
+    res.status(200).json({
+        message: "Categoria deletada",
+        categoria: categoria
+    })
+}
