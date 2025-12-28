@@ -1,4 +1,4 @@
-import {param} from "express-validator";
+import {param, body} from "express-validator";
 
 export const validarLerCategoriaId = [
     param("id")
@@ -15,4 +15,12 @@ export const validarLerCategoriaNome = [
         .withMessage("Campo obrigatorio")
         .isString()
         .withMessage("Campo precisa ser string")
+]
+
+export const validarCriarCategoria = [
+    body("nome")
+        .isEmpty()
+        .withMessage("Campo obrigatorio")
+        .isString()
+        .withMessage("Campo precisa ser uma string")
 ]

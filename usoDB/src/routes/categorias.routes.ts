@@ -1,9 +1,10 @@
 import { Router } from "express";
 
 import { validarResultado } from "../middleware/validarResultado.js";
-import { validarLerCategoriaId, validarLerCategoriaNome } from "../middleware/categorias.middleware.js";
+import { validarLerCategoriaId, validarLerCategoriaNome, validarCriarCategoria } from "../middleware/categorias.middleware.js";
 
 import { lerCategoriaPorId, lerCategoriaPorNome } from "../controller/categorias.controller.js";
+import { criarCategoria } from "../database/create/categorias.create.js";
 
 const router = Router();
 
@@ -21,4 +22,19 @@ router.get(
     validarLerCategoriaNome,
     validarResultado,
     lerCategoriaPorNome
+)
+
+router.post( // Colocar um categoria novo
+    "/",
+    validarCriarCategoria,
+    validarResultado,
+    criarCategoria
+)
+
+router.put(
+    "/" // Atualiza um categoria
+)
+
+router.delete(
+    "/" // Deleta um categoria
 )

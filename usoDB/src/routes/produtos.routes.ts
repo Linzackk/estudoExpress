@@ -19,5 +19,17 @@ router.get(
     lerProdutosPorCategoria
 )
 
+router.post(
+    "/" // Criar uma produto nova
+)
+
+router.put(
+    "/" // Atualizar uma produto
+)
+
+router.delete(
+    "/" // Deletar uma produto
+)
+
 export default router;
 
