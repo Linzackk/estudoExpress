@@ -28,14 +28,14 @@ router.post(
 )
 
 router.put(
-    "/",
+    "/:id",
     validarAtualizarProduto,
     validarResultado,
     atualizarProduto
 )
 
 router.delete(
-    "/",
+    "/:id",
     validarDeletarProduto,
     validarResultado,
     deletarProduto
