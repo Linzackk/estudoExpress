@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const validarResultado_1 = require("../middleware/validarResultado");
+const validarCriacaoUsuario_1 = require("../middleware/validarCriacaoUsuario");
+const validarListagemUsuario_1 = require("../middleware/validarListagemUsuario");
+const users_controller_1 = require("../controller/users.controller");
+const router = (0, express_1.Router)();
+router.post("/", validarCriacaoUsuario_1.validarCriarUsuario, validarResultado_1.validarResultado, users_controller_1.criarUsuario);
+router.get("/", validarListagemUsuario_1.validarListagemUsuario, validarResultado_1.validarResultado, users_controller_1.listarUsuarios);
+exports.default = router;
