@@ -313,6 +313,174 @@ Observações:
 
 ---
 
+### usoDB
+
+Projeto focado em CRUD de produtos e categorias utilizando Express.js, validação de dados com express-validator e integração com PostgreSQL com Prisma.
+
+Este projeto **não pode ser executado diretamente** por terceiros, pois as credenciais do banco de dados estão armazenadas em um arquivo `.env` local que não faz parte do repositório.  
+Mesmo assim, ele é mantido no repositório por ser um projeto importante para estudo de validação, organização de rotas e integração com banco de dados.
+
+---
+
+Observação importante
+
+Para executar este projeto seria necessário:
+- Criar um arquivo `.env`
+- Configurar as variáveis de ambiente do banco de dados
+- Ter o banco corretamente estruturado
+
+---
+
+Base URL  
+http://localhost:<porta>
+
+---
+
+Rotas de Produtos (/produtos)
+
+GET /produtos/id/:id  
+Descrição:  
+Busca um produto pelo ID.
+
+Parâmetros esperados:
+```json
+{
+  "id": 1
+}
+```
+
+GET /produtos/categoria/:categoria
+Descrição:
+Lista produtos filtrados por categoria.
+
+Parâmetros esperados:
+
+```json
+{
+  "categoria": "eletronicos"
+}
+```
+
+POST /produtos
+Descrição:
+Cria um novo produto.
+
+Body esperado:
+
+```json
+{
+  "nome": "Produto Exemplo",
+  "preco": 99.90,
+  "categoria": "eletronicos"
+}
+```
+
+PUT /produtos/:id
+Descrição:
+Atualiza um Produto existente
+
+Parâmetros:
+
+```json
+{
+  "id": 1
+}
+```
+
+Body esperado:
+
+```json
+{
+  "nome": "Produto Atualizado",
+  "preco": 120.00,
+  "idCategoria": 2
+}
+```
+Todos os campos do body são opcionais.
+
+Rotas de Categorias (/categorias)
+
+GET /categorias/id/:id
+Descrição:
+Busca uma categoria pelo ID.
+
+Parâmetros esperados:
+
+```json
+{
+   "id": 1
+}
+```
+
+GET /categorias/nome/:nome
+Descrição:
+Busca uma categoria pelo nome.
+
+Parâmetros esperados:
+
+```json
+{
+  "nome": "eletronicos"
+}
+```
+
+POST /categorias
+Descrição:
+Cria uma nova categoria.
+
+Body esperado:
+
+```json
+{
+  "nome": "eletronicos"
+}
+```
+
+PUT /categorias/:id
+Descrição:
+Atualiza o nome de uma categoria.
+
+Parâmetros:
+
+```json
+{
+   "id": 1
+}
+```
+
+Body esperado
+```json
+{
+  "nome": "Eletrônicos"
+}
+```
+DELETE /categorias/:id
+Descrição:
+Remove uma categoria pelo ID.
+
+```json
+{
+  "id": 1
+}
+```
+
+Validações aplicadas
+
+- Todos os IDs devem ser inteiros maiores que 0
+- Campos de texto devem ser strings não vazias
+- Preço do produto deve ser float maior ou igual a 0.01
+- As validações são aplicadas via middlewares com express-validator
+- O middleware validarResultado interrompe a requisição em caso de erro
+
+Importância do projeto
+
+Mesmo sem execução direta, este projeto demonstra:
+- Organização de rotas REST
+- Separação de responsabilidades
+- Validação robusta de parâmetros e body
+- Integração com banco de dados via variáveis de ambiente
+- Boas práticas de segurança ao não expor credenciais
+
 ## Observações
 
 Este repositório tem finalidade educacional e está em constante evolução.  
