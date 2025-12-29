@@ -24,6 +24,9 @@ O objetivo deste repositório é centralizar meus experimentos e práticas com E
 - TypeScript
 - JavaScript
 - NPM
+- dotenv
+- bCrypt
+- JWT
 
 ---
 
