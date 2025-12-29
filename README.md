@@ -98,8 +98,8 @@ POST   /usuarios        Cria um novo usuário
 
 Body esperado:
 
-```
-{
+```json
+{ 
    nome: string,
    idade: int,
 }
@@ -116,11 +116,14 @@ Rotas de Autenticação (/login)
 POST /login  Realiza login e retorna o token de autenticação
 
 Usuário disponível para login:
+
+```json
 {
   id: 1,
   email: "email@email.com",
   senha: "123"
 }
+```
 
 Rotas Protegidas (/api)
 
@@ -134,9 +137,12 @@ Tratamento de Erros
 Rota inexistente:
 Status 404
 Resposta:
+
+```json
 {
   "erro": "Rota nao encontrada"
 }
+```
 
 ---
 
@@ -181,7 +187,7 @@ Middlewares utilizados:
 
 Resposta de sucesso:
 
-```
+```json
 {
   "mensagem": "Acesso liberado a area de admin",
   "usuario": { ... }
@@ -192,7 +198,7 @@ Usuários cadastrados para teste
 
 Usuário administrador:
 
-``` 
+```json
 {
   id: 1,
   email: "teste@email.com",
@@ -272,7 +278,7 @@ Lista usuários com validação dos parâmetros enviados via query string.
 
 Query params esperados:
 
-```
+```json
 {
   "page": 1,
   "limit": 10,
@@ -294,7 +300,7 @@ Middlewares utilizados:
 
 Body esperado:
 
-```
+```json
 {
   "email": "email@email.com",
   "senha": "SenhaForte@123"
