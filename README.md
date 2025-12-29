@@ -133,6 +133,80 @@ Resposta:
 
 ---
 
+### expressAutenticacaoValidacao
+
+Projeto focado em autenticação e autorização utilizando Express, com controle de acesso baseado em perfil de usuário e uso de refresh token.
+
+Este projeto possui:
+- Login com autenticação
+- Proteção de rotas com JWT
+- Autorização por perfil (admin / user)
+- Refresh token
+- Logout
+
+---
+
+Base URL
+http://localhost:<porta>
+
+---
+
+Rotas de Autenticação (/auth)
+
+GET    /auth             Rota de teste de autenticação
+POST   /auth/login       Realiza login e retorna access token e refresh token
+POST   /auth/refresh     Gera um novo access token a partir do refresh token
+POST   /auth/logout      Invalida o refresh token do usuário
+
+---
+
+Rotas Protegidas
+
+GET /auth/admin
+
+Descrição:
+Rota protegida acessível apenas para usuários autenticados com perfil "admin".
+
+Middlewares utilizados:
+- autenticarToken
+- autorizar(["admin"])
+
+Resposta de sucesso:
+{
+  "mensagem": "Acesso liberado a area de admin",
+  "usuario": { ... }
+}
+
+---
+
+Usuários cadastrados para teste
+
+Usuário administrador:
+{
+  id: 1,
+  email: "teste@email.com",
+  senha: "123456",
+  perfil: "admin"
+}
+
+Usuário comum:
+{
+  id: 2,
+  email: "teste2@email.com",
+  senha: "123456",
+  perfil: "user"
+}
+
+Observação:
+As senhas são armazenadas utilizando bcrypt.
+
+---
+
+Headers esperados para rotas protegidas
+
+Authorization: Bearer <token>
+
+
 ## Observações
 
 Este repositório tem finalidade educacional e está em constante evolução.  
