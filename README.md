@@ -63,18 +63,21 @@ Após executar o comando acima, o servidor será iniciado automaticamente.
 
 De forma geral, cada projeto segue uma estrutura semelhante a esta:
 
+```
 nome-do-projeto/
 ├── dist/           # Código JavaScript gerado após o build
 ├── src/            # Código-fonte em TypeScript
 ├── package.json
 └── tsconfig.json
+```
 
 ---
 
 ## Projetos
 
-### expressBasico
+---
 
+### expressBasico
 
 Projeto focado em autenticação de usuários utilizando Express, com separação de rotas públicas e protegidas por token.
 
@@ -84,21 +87,29 @@ Este projeto possui:
 - Rota protegida acessível apenas com token válido
 - Tratamento de rota não encontrada (404)
 
----
-
 Base URL
 http://localhost:<porta>
-
----
 
 Rotas de Usuários (/usuarios)
 
 GET    /usuarios        Lista todos os usuários
+
 POST   /usuarios        Cria um novo usuário
+
+Body esperado:
+
+```
+{
+   nome: string,
+   idade: int,
+}
+```
+
 PUT    /usuarios/:id    Atualiza um usuário existente
+
 DELETE /usuarios/:id    Remove um usuário
 
----
+___
 
 Rotas de Autenticação (/login)
 
@@ -111,16 +122,12 @@ Usuário disponível para login:
   senha: "123"
 }
 
----
-
 Rotas Protegidas (/api)
 
 GET /api  Retorna mensagem de acesso autorizado e dados do usuário autenticado
 
 Header esperado:
 Authorization: Bearer <token>
-
----
 
 Tratamento de Erros
 
@@ -144,18 +151,17 @@ Este projeto possui:
 - Refresh token
 - Logout
 
----
-
 Base URL
 http://localhost:<porta>
-
----
 
 Rotas de Autenticação (/auth)
 
 GET    /auth             Rota de teste de autenticação
+
 POST   /auth/login       Realiza login e retorna access token e refresh token
+
 POST   /auth/refresh     Gera um novo access token a partir do refresh token
+
 POST   /auth/logout      Invalida o refresh token do usuário
 
 ---
@@ -165,23 +171,28 @@ Rotas Protegidas
 GET /auth/admin
 
 Descrição:
+
 Rota protegida acessível apenas para usuários autenticados com perfil "admin".
 
 Middlewares utilizados:
+
 - autenticarToken
 - autorizar(["admin"])
 
 Resposta de sucesso:
+
+```
 {
   "mensagem": "Acesso liberado a area de admin",
   "usuario": { ... }
 }
-
----
+```
 
 Usuários cadastrados para teste
 
 Usuário administrador:
+
+``` 
 {
   id: 1,
   email: "teste@email.com",
@@ -196,16 +207,105 @@ Usuário comum:
   senha: "123456",
   perfil: "user"
 }
+```
 
 Observação:
-As senhas são armazenadas utilizando bcrypt.
 
----
+As senhas são armazenadas utilizando bcrypt.
 
 Headers esperados para rotas protegidas
 
 Authorization: Bearer <token>
 
+---
+
+### validacaoDados
+
+Projeto focado em validação de dados utilizando Express.js com a biblioteca express-validator, aplicando validações por meio de middlewares antes da execução da lógica de negócio.
+
+Este projeto possui:
+- Validação de dados de entrada
+- Uso intensivo de middlewares com express-validator
+- Separação entre validação e controllers
+- Padronização de respostas de erro
+
+Base URL  
+http://localhost:<porta>
+
+Rotas de Usuários (/users)
+
+POST /users
+
+Descrição:
+
+Cria um novo usuário com validação completa dos dados enviados no body da requisição.
+
+Middlewares utilizados:
+- validarCriarUsuario
+- validarResultado
+
+Body esperado:
+```json
+{
+  "name": "Nome do Usuário",
+  "email": "email@email.com",
+  "password": "SenhaForte@123",
+  "role": "admin"
+}
+```
+
+Observações:
+- name deve conter no mínimo 3 caracteres
+- email deve ser válido
+- password deve ser uma senha forte
+- role é opcional e aceita apenas "admin" ou "user"
+
+GET /users
+
+Descrição:
+
+Lista usuários com validação dos parâmetros enviados via query string.
+
+- Middlewares utilizados:
+- validarListagemUsuario
+- validarResultado
+
+Query params esperados:
+
+```
+{
+  "page": 1,
+  "limit": 10,
+  "role": "user"
+}
+```
+Todos os parâmetros são opcionais.
+
+Rotas de Login (/login)
+
+- POST /login
+- Descrição:
+- Realiza login com validação dos dados enviados no body da requisição.
+
+Middlewares utilizados:
+
+- validarLoginValidator
+- validarResultado
+
+Body esperado:
+
+```
+{
+  "email": "email@email.com",
+  "senha": "SenhaForte@123"
+}
+```
+
+Observações:
+- email deve ser válido
+- senha deve ser uma senha forte (mínimo 8 caracteres, com letra maiúscula, minúscula, número e símbolo)
+
+---
 
 ## Observações
 
