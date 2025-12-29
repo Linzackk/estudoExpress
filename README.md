@@ -481,6 +481,122 @@ Mesmo sem execução direta, este projeto demonstra:
 - Integração com banco de dados via variáveis de ambiente
 - Boas práticas de segurança ao não expor credenciais
 
+---
+
+### Segurança e Variáveis de Ambiente em APIs
+
+Projeto focado na aplicação de práticas básicas e essenciais de segurança em APIs utilizando Express.js, com uso de variáveis de ambiente e middlewares amplamente adotados no mercado.
+
+Este projeto demonstra como configurar uma API segura desde a inicialização, aplicando proteções comuns contra abusos e más práticas.
+
+---
+
+Observação importante
+
+Este projeto depende de variáveis definidas em um arquivo `.env`.  
+Sem essas variáveis, a aplicação não inicia corretamente.
+
+Exemplo de variáveis necessárias no `.env`:
+```env
+PORT=3000
+CORS_ORIGIN=http://localhost:3000
+```
+
+Configurações de segurança aplicadas:
+- Uso de variáveis de ambiente com .env
+- CORS configurado com origem controlada
+- Helmet para configuração de headers de segurança
+- Rate limit para proteção contra força bruta e abuso de requisições
+- Validação da existência de variáveis críticas na inicialização da aplicação
+
+Middlewares utilizados
+
+Middleware padrão:
+
+- express.json
+Responsável por permitir o parsing de requisições JSON.
+
+CORS
+```text
+cors({
+  origin: process.env.CORS_ORIGIN
+})
+```
+Restringe quais origens podem acessar a API, evitando requisições não autorizadas de outros domínios.
+
+Helmet
+```text
+helmet()
+```
+Adiciona headers HTTP de segurança automaticamente, protegendo contra:
+
+- XSS
+- Clickjacking
+- Sniffing de MIME types
+- Outras vulnerabilidades comuns
+
+Rate Limit
+Login Rate Limiter:
+```text
+Janela: 15 minutos
+Máximo de tentativas: 5
+```
+Utilizado para proteger a rota de login contra ataques de força bruta.
+
+Mensagem de bloqueio:
+
+```json
+{
+  "message": "Muitas tentativas de Login. Tente novamente mais tarde"
+}
+```
+
+API Rate Limiter:
+
+```text
+Janela: 1 minuto
+Máximo de requisições: 100
+```
+
+Utilizado para limitar o número de requisições gerais à API, evitando abuso e sobrecarga.
+
+Fluxo de inicialização da aplicação
+1. Configuração do Express
+2. Aplicação do middleware express.json
+3. Configuração do CORS com base no .env
+4. Aplicação do Helmet
+5. Validação da variável PORT
+6. Registro das rotas
+7. Inicialização do servidor
+
+Rota de Login (exemplo)
+
+POST /login
+Descrição:
+Rota de login simulada apenas para fins de estudo.
+
+Body esperado:
+
+```json
+{
+  "email": "admin@email.com",
+  "password": "123456"
+}
+```
+Respostas possíveis:
+
+- 200: Login realizado com sucesso
+- 401: Credenciais inválidas
+
+Importância do projeto
+- Este projeto é importante para demonstrar:
+- Uso correto de variáveis de ambiente
+- Configuração de segurança desde o bootstrap da aplicação
+- Proteções básicas esperadas em APIs REST
+- Boas práticas adotadas em ambientes reais de produção
+
+---
+
 ## Observações
 
 Este repositório tem finalidade educacional e está em constante evolução.  
