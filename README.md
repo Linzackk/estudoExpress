@@ -71,6 +71,67 @@ nome-do-projeto/
 
 ---
 
+## Projetos
+
+### expressBasico
+
+
+Projeto focado em autenticação de usuários utilizando Express, com separação de rotas públicas e protegidas por token.
+
+Este projeto possui:
+- Cadastro e gerenciamento de usuários
+- Login com autenticação
+- Rota protegida acessível apenas com token válido
+- Tratamento de rota não encontrada (404)
+
+---
+
+Base URL
+http://localhost:<porta>
+
+---
+
+Rotas de Usuários (/usuarios)
+
+GET    /usuarios        Lista todos os usuários
+POST   /usuarios        Cria um novo usuário
+PUT    /usuarios/:id    Atualiza um usuário existente
+DELETE /usuarios/:id    Remove um usuário
+
+---
+
+Rotas de Autenticação (/login)
+
+POST /login  Realiza login e retorna o token de autenticação
+
+Usuário disponível para login:
+{
+  id: 1,
+  email: "email@email.com",
+  senha: "123"
+}
+
+---
+
+Rotas Protegidas (/api)
+
+GET /api  Retorna mensagem de acesso autorizado e dados do usuário autenticado
+
+Header esperado:
+Authorization: Bearer <token>
+
+---
+
+Tratamento de Erros
+
+Rota inexistente:
+Status 404
+Resposta:
+{
+  "erro": "Rota nao encontrada"
+}
+
+---
 
 ## Observações
 
