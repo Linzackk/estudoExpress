@@ -80,7 +80,15 @@ describe("CRUD inválido de Usuarios", () => {
             });
 
         expect(response.status).toBe(400);
-        expect(response.body.message).toBe("Email e Nome são obrigatórios");
+        expect(response.body.message).toBe("email e name são obrigatórios");
+    });
+
+    it("Deve retornar status 400 se o ID nao for inteiro", async () => {
+        const response = await request(app)
+            .put("/users/aaa");
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toBe("id precisa ser inteiro");
     });
 
     it("Deve retornar status 404 se o usuario nao existir", async () => {
@@ -93,6 +101,14 @@ describe("CRUD inválido de Usuarios", () => {
 
         expect(response.status).toBe(404);
         expect(response.body.message).toBe("Usuario nao encontrado");
+    });
+
+    it("Deve retornar status 400 se o ID nao for inteiro", async () => {
+        const response = await request(app)
+            .delete("/users/aaa");
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toBe("id precisa ser inteiro");
     });
 
     it("Deve retornar status 404 se o usuario nao existir", async () => {

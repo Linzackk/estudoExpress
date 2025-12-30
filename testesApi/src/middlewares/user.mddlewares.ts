@@ -5,7 +5,7 @@ export function validarCriarUsuario(req: Request, res: Response, next: NextFunct
 
     if (!email || !name) {
         res.status(400).json({
-            message: "'email' e 'name' são obrigatórios"
+            message: "email e name são obrigatórios"
         });
         return
     }
@@ -14,11 +14,11 @@ export function validarCriarUsuario(req: Request, res: Response, next: NextFunct
 }
 
 export function validarDeletarUsuario(req: Request, res: Response, next: NextFunction) {
-    const id = req.params.id;
+    const id = Number(req.params.id);
 
-    if (typeof(id) !== "number") {
+    if (!id) {
         res.status(400).json({
-            message: "'id' precisa ser inteiro",
+            message: "id precisa ser inteiro",
         });
         return
     }
@@ -27,11 +27,11 @@ export function validarDeletarUsuario(req: Request, res: Response, next: NextFun
 }
 
 export function validarAtualizarUsuario(req: Request, res: Response, next: NextFunction) {
-    const id = req.params.id;
+    const id = Number(req.params.id);
 
-    if (typeof(id) !== "number") {
+    if (!id) {
         res.status(400).json({
-            message: "'id' precisa ser inteiro",
+            message: "id precisa ser inteiro",
         });
         return
     }
