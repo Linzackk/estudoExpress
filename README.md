@@ -27,6 +27,7 @@ O objetivo deste repositório é centralizar meus experimentos e práticas com E
 - dotenv
 - bCrypt
 - JWT
+- Jest e Supertest
 
 ---
 
@@ -595,6 +596,29 @@ Importância do projeto
 - Proteções básicas esperadas em APIs REST
 - Boas práticas adotadas em ambientes reais de produção
 
+---
+
+## Testes API
+
+Projeto desenvolvido com o objetivo de estudar e praticar **testes de rotas e testes unitários** em uma API construída com **Node.js e Express**. A aplicação consiste em uma API simples com **CRUD em memória**, focada principalmente na validação do funcionamento das rotas por meio de testes automatizados.
+
+Este projeto Possui:
+- CRUD completo utilizando armazenamento em memória  
+- Tratamento básico de erros nas rotas  
+- Testes de rotas (integração) utilizando **Supertest**  
+- Testes unitários utilizando **Jest**  
+- Estrutura organizada para facilitar manutenção e testes  
+
+## Como rodar o projeto
+1. Acesse a pasta do projeto:
+   ```bash
+   cd testesAPI
+   ```
+2. Execute os testes:
+   ```bash
+   npm test
+   ```
+   
 ---
 
 ## Observações
