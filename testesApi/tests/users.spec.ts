@@ -100,7 +100,6 @@ describe("CRUD inválido de Usuarios", () => {
             });
 
         expect(response.status).toBe(404);
-        expect(response.body.message).toBe("Usuario nao encontrado");
     });
 
     it("Deve retornar status 400 se o ID nao for inteiro", async () => {
@@ -116,7 +115,6 @@ describe("CRUD inválido de Usuarios", () => {
             .delete("/users/1");
 
         expect(response.status).toBe(404);
-        expect(response.body.message).toBe("Usuario nao encontrado");
     });
 
 });

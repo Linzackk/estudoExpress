@@ -4,4 +4,14 @@ export interface User {
     email: string;
 }
 
-export const users: User[] = [];
+export let users: User[] = [];
+export let nextId: number = 1;
+
+export function resetUsers() {
+    users = [];
+    nextId = 1;
+}
+
+export function atualizarNextId() {
+    nextId++
+}

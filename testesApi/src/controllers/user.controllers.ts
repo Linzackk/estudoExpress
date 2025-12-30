@@ -1,50 +1,43 @@
 import { Request, Response } from "express";
 
-import { users, User } from "../users/users";
+import { createUser, listUsers, updateUser, deleteUser } from "../services/user.service";
+import { resetUsers } from "../users/users";
 
 export function criarUsuario(req: Request, res: Response) {
-    const {name, email } = req.body;
-
-    const newUser: User = {
-        id: users.length + 1,
-        name,
-        email,
-    };
-
-    users.push(newUser);
-
-    return res.status(201).json(newUser);
+    try {
+        const {name, email } = req.body;
+        const newUser = createUser(name, email);
+    
+        return res.status(201).json(newUser);
+    } catch (error: any) {
+        return res.status(404).json({ message: error.message })
+    }
 };
 
-export function atualizarUsuario(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    const {name, email} = req.body;
+export function atualizarUsuario(req: Request, res: Response) {    
+    try {
+        const id = Number(req.params.id);
+        const {name, email} = req.body;
 
-    const user = users.find(u => u.id === id);
+        const user = updateUser(id, name, email)
 
-    if (!user) {
-        return res.status(404).json({ message: "Usuario nao encontrado" });
+        return res.status(200).json(user);
+    } catch (error: any) {
+        return res.status(404).json({ message: error.message })
     }
-
-    user.name = name ?? user.name;
-    user.email = email ?? user.email;
-
-    return res.status(200).json(user);
 };
 
 export function lerUsuarios(req: Request, res: Response) {
-    return res.status(200).json(users);
+    return listUsers();
 }
 
 export function deletarUsuario(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    const index = users.findIndex(u => u.id === id);
+    try {
+        const id = Number(req.params.id);
 
-    if (index === -1) {
-        return res.status(404).json({ message: "Usuario nao encontrado"});
+        deleteUser(id);
+        return res.status(204).send();
+    } catch (error: any) {
+        return res.status(404).json({ message: error.message })
     }
-
-    users.splice(index, 1);
-
-    return res.status(204).send();
 };
