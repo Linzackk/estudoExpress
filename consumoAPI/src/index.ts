@@ -1,6 +1,7 @@
+import axios from "axios";
 export {};
 
-const run = async () => {
+const consumirComFetch = async () => {
     try {
         const response = await fetch("https://jsonplaceholder.typicode.com/users");
 
@@ -15,4 +16,15 @@ const run = async () => {
     }
 };
 
-run();
+async function consumirComAxios() {
+    try {
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+
+        console.log(response.status);
+        console.log(response.data);
+    } catch (error) {
+        console.log("Entrou no Catch");
+    }
+}
+
+consumirComAxios()
