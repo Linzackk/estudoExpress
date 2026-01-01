@@ -11,5 +11,17 @@ export function errorHandler(
     
     const statusCode = isAppError ? err.statusCode : 500; // Se não for é erro interno.
 
-    
+    const message = isAppError
+        ? err.message
+        : "Erro interno do servidor";
+
+    console.error({
+        name: err.name,
+        message: err.message,
+        stack: err.stack,
+    });
+
+    return res.status(statusCode).json({
+        error: message,
+    });
 }
