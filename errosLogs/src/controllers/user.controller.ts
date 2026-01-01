@@ -6,6 +6,7 @@ export function getUser(
     res: Response,
     next: NextFunction
 ) {
+    // Erro Controlado
     const user = null // simulando o usuario não encontrado
 
     if (!user) {
@@ -13,4 +14,13 @@ export function getUser(
     }
 
     return res.status(200).json(user);
+}
+
+export function getUserError(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    // Erro inesperado
+    throw new Error("Falha ao acessar o banco")
 }
