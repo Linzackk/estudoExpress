@@ -28,4 +28,23 @@ async function consumirComAxios() {
     }
 }
 
-consumirComAxios()
+interface Usuario {
+    id: number;
+    name: string;
+    email: string;
+}
+
+async function buscarUsuarios() {
+    const response = await axios.get<Usuario[]>(
+        "https://jsonplaceholder.typicode.com/users"
+    );
+
+    response.data.forEach((usuario) => {
+        console.log(usuario.id);
+        console.log(usuario.name);
+        console.log(usuario.email);
+        console.log("-----");
+    });
+}
+
+buscarUsuarios()
