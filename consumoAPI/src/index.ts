@@ -18,12 +18,13 @@ const consumirComFetch = async () => {
 
 async function consumirComAxios() {
     try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+        const response = await axios.get("https://jsonplaceholder.typicode.com/erro/1");
 
         console.log(response.status);
         console.log(response.data);
-    } catch (error) {
-        console.log("Entrou no Catch");
+    } catch (error: any) {
+        console.log(error.response.status);
+        console.log(error.response.data);
     }
 }
 
